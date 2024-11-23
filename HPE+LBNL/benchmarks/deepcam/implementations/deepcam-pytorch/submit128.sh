@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG=${1:-configs/config_pm_16x4x1_npy.sh}
+CONFIG=${1:-configs/config_pm_128x4x1.sh}
 echo "Using config ${CONFIG}"
 source ${CONFIG}
 unset ${!SLURM_@};

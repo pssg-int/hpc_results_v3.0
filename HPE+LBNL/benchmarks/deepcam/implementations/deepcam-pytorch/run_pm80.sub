@@ -60,7 +60,7 @@ set -euxo pipefail
 
 # compute number of total ranks
 TOTALGPU=$(( ${DGXRUNNODES} * ${DGXNGPU} ))
-
+nvidia-smi
 # determine the wireup method
 if [ "${TOTALGPU}" -eq 1 ]; then
     WIREUP_METHOD="dummy"

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # data directory
-export DATADIR=/pscratch/sd/s/sfarrell/deepcam-hpc-v1.0/data/All-Hist/numpy
+export DATADIR=/pscratch/sd/c/cunyang/deepcam/data/All-Hist/numpy
 
 # this should never be exceeded by any benchmark
-export MAX_EPOCHS=50
+# export MAX_EPOCHS=2 # set in config/congig_pm_*.sh
 
 # this is for some global parameters:
 export ADDITIONAL_ARGS="--disable_tuning"

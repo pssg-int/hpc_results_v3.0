@@ -398,7 +398,11 @@ def main(pargs):
     
     # training loop
     while True:
-
+        if epoch == start_epoch:
+            prof = torch.profiler.profile(activities=[
+                torch.profiler.ProfilerActivity.CUDA, torch.profiler.ProfilerActivity.CPU
+            ])
+            prof.__enter__()
         # start epoch
         plog.event(plog.INTERVAL_START, key="epoch_start", metadata={'epoch_num': epoch+1, 'step_num': step}) 
         logger.start(key=mllog.constants.EPOCH_START, metadata = {'epoch_num': epoch+1, 'step_num': step}, sync=False)
@@ -461,6 +465,16 @@ def main(pargs):
                 plog.event(plog.INTERVAL_END, key="run_stop", metadata={'status' : 'aborted', 'epoch_num': epoch})
                 logger.log_run_stop(status=mllog.constants.ABORTED, epoch=epoch)
             break
+    
+    prof.__exit__(None, None, None)
+    slurm_job_id = os.getenv("SLURM_JOB_ID")
+    profiler_output_dir = "/pscratch/sd/c/cunyang/deepcam/profiler_output/" + slurm_job_id
+    if not os.path.exists(profiler_output_dir):
+        os.makedirs(profiler_output_dir)
+
+    rank = torch.distributed.get_rank()
+    trace_file = os.path.join(profiler_output_dir, f"profiler_trace_{rank}.json")
+    prof.export_chrome_trace(trace_file)
 
     return
 

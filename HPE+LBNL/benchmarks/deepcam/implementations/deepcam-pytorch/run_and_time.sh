@@ -79,7 +79,7 @@ PARAMS=(
     --wireup_method ${WIREUP_METHOD}
     --run_tag ${RUN_TAG}
     --experiment_id ${EXP_ID:-1}
-    --data_dir_prefix ${DATA_DIR_PREFIX:-"/data"}
+    --data_dir_prefix ${DATA_DIR_PREFIX:-"/pscratch/sd/c/cunyang/deepcam/data/All-Hist/numpy"}
     --output_dir ${OUTPUT_DIR}
     --model_prefix "segmentation"
     --optimizer ${OPTIMIZER}
